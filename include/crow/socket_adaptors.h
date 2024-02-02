@@ -27,11 +27,7 @@ namespace crow
 
         asio::io_service& get_io_service()
         {
-<<<<<<< HEAD
-            return static_cast<boost::asio::io_context&>(socket_.get_executor().context());
-=======
             return GET_IO_SERVICE(socket_);
->>>>>>> 4f3f5deaaa01825c63c83431bfa96ccec195f741
         }
 
         /// Get the TCP socket handling data trasfers, regardless of what layer is handling transfers on top of the socket.
