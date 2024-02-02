@@ -1,9 +1,11 @@
-#include <iostream>
 #include <fstream>
-#include <string>
+#include <iostream>
 #include <iterator>
-#include "crow/mustache.h"
+#include <string>
+
 #include "crow/json.h"
+#include "crow/mustache.h"
+
 using namespace std;
 using namespace crow;
 using namespace crow::mustache;
@@ -16,11 +18,10 @@ string read_all(const string& filename)
 
 int main()
 {
-    auto data = json::load(read_all("data")); 
+    auto data = json::load(read_all("data"));
     auto templ = compile(read_all("template"));
     auto partials = json::load(read_all("partials"));
-    set_loader([&](std::string name)->std::string
-    {
+    set_loader([&](std::string name) -> std::string {
         if (partials.count(name))
         {
             return partials[name].s();
@@ -28,6 +29,6 @@ int main()
         return "";
     });
     context ctx(data);
-    cout << templ.render(ctx);
+    cout << templ.render_string(ctx);
     return 0;
 }
